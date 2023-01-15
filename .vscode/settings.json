@@ -1,0 +1,17 @@
+{
+    "javascript.autoClosingTags": false,
+    "typescript.autoClosingTags": false,
+    "vsintellicode.typescript.completionsEnabled": false,
+    "intellicodeApiExamples.typescript.enabled": false,
+    "javascript.format.enable": false,
+    "javascript.format.insertSpaceAfterCommaDelimiter": false,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+    "javascript.suggest.includeCompletionsForImportStatements": false,
+    "editor.autoIndent": "none",
+    "typescript.format.enable": false
+}

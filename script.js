@@ -21,15 +21,12 @@
 // https://dexie.org/
 // ==/UserScript==
 
-// include script src
-
+// include dexie source code
 var script = document.createElement('script');
-
-script.src =
-    "https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.2/dexie.min.js";
-
+script.src = "https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.2/dexie.min.js";
 document.head.appendChild(script)
 
+// this is the main function
 (function($) {
 
     var DEBUG = false;
@@ -59,21 +56,34 @@ document.head.appendChild(script)
         init: function init(name, max_length) {
             this.name = name;
             this.max_length = max_length || 200000;
-            this.list = localStorage.getItem('kudoshistory_' + this.name) || ',';
+            // this.list = localStorage.getItem('kudoshistory_' + this.name) || ',';
             // Create new dexie DB
+            var db = new Dexie("kudoshistory_" + this.name);
+            // Create a table
+            db.version(1).stores({
+                list: 'id'
+            });
 
+            this.list = db.list.toArray().then(function(list) {
+                return list;
+            });
             return this;
         },
 
         reload: function reload() {
-            this.list = localStorage.getItem('kudoshistory_' + this.name) || this.list;
+            // this.list = localStorage.getItem('kudoshistory_' + this.name) || this.list;
+            this.list = db.list.toArray().then(function(list) {
+                return list;
+            });
             return this;
         },
         save: function save() {
             try {
-                localStorage.setItem('kudoshistory_' + this.name, this.list.slice(0, this.max_length));
+                // localStorage.setItem('kudoshistory_' + this.name, this.list.slice(0, this.max_length));
+                db.list.put({ id: this.list.slice(0, this.max_length) });
             } catch (e) {
-                localStorage.setItem('kudoshistory_' + this.name, this.list.slice(0, this.list.length * 0.9));
+                // localStorage.setItem('kudoshistory_' + this.name, this.list.slice(0, this.list.length * 0.9));
+                db.list.put({ id: this.list.slice(0, this.list.length * 0.9) });
             }
             return this;
         },
@@ -163,7 +173,8 @@ document.head.appendChild(script)
         },
         save: function save() {
             saved_settings[this.name] = this.current;
-            localStorage.setItem('kudoshistory_settings', JSON.stringify(saved_settings));
+            // localStorage.setItem('kudoshistory_settings', JSON.stringify(saved_settings));
+            db.settings.put({ id: saved_settings });
         },
         check: function check(compare) {
             return (this.current === (compare || 'yes'));
@@ -221,9 +232,13 @@ document.head.appendChild(script)
         },
     ];
 
+    // note: may need to remove this if statement in order to transition to Dexie
     if (typeof(Storage) !== 'undefined') {
 
-        saved_settings = JSON.parse(localStorage.getItem('kudoshistory_settings')) || {};
+        // saved_settings = JSON.parse(localStorage.getItem('kudoshistory_settings')) || {};
+        db.settings.get(1).then(function(settings) {
+            saved_settings = settings;
+        });
 
         kudos_history = {
             kudosed: Object.create(KHList).init('kudosed'),
