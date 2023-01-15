@@ -20,11 +20,18 @@
 // ----------------------------------------------
 // https://dexie.org/
 // ==/UserScript==
+var source = document.createElement('source');
+
+source.type = type;
+source.src = "https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.2/dexie.min.js";
+
+document.head.append(source);
+
 
 // include dexie source code
-var script = document.createElement('script');
-script.src = "https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.2/dexie.min.js";
-document.head.appendChild(script)
+//var script = document.createElement('script');
+//document.head.append(script);
+
 
 // this is the main function
 (function($) {
