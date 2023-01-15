@@ -17,8 +17,18 @@
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js
 // @include     http://*archiveofourown.org/*
 // @include     https://*archiveofourown.org/*
+// ----------------------------------------------
+// https://dexie.org/
 // ==/UserScript==
 
+// include script src
+
+var script = document.createElement('script');
+
+script.src =
+    "https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.2/dexie.min.js";
+
+document.head.appendChild(script)
 
 (function($) {
 
@@ -49,7 +59,9 @@
         init: function init(name, max_length) {
             this.name = name;
             this.max_length = max_length || 200000;
-            this.list = localStorage.getItem('kudoshistory_' + this.name) || ','; // <- change this line
+            this.list = localStorage.getItem('kudoshistory_' + this.name) || ',';
+            // Create new dexie DB
+
             return this;
         },
 
