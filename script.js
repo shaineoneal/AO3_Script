@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        AO3: Kudosed and seen history
+// @name        AO3: Kudosed and seen history DEXIE VERSION
 // @description Highlight or hide works you kudosed/marked as seen.
 // @namespace   https://greasyfork.org/scripts/5835-ao3-kudosed-and-seen-history
-// @author	Min
+// @author	Min (modified by https://github.com/tealblu)
 // @version	2.2.1
 // @history	2.2.1 - fix for bookmarked blurbs
 // @history	2.2 - separate kudosed and seen settings, smaller icons
